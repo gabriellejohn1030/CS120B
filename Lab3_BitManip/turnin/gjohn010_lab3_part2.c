@@ -31,7 +31,7 @@ int main(void) {
 	unsigned char lowFuel = 0;
 
 
-		if (fuelLevel == 2 || fuelLevel == 1) {
+		if (fuelLevel == 2 || fuelLevel == 1 || fuelLevel == 0) {
 			light = 0x20;
 			lowFuel = 0x40;
 		}
