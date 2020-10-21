@@ -53,10 +53,6 @@ int main(void) {
 		unsigned char light = 0;
 		unsigned char lowFuel = 0;
 	
-		unsigned char key = GetBit(PINA, 4);
-		unsigned char seat = GetBit(PINA, 5);
-		unsigned char seatbelt = GetBit(PINA, 6);
-		unsigned char fastenbelt = 0;
         
         	if (fuelLevel == 0) {
         	    lowFuel = 0x40;
@@ -85,20 +81,20 @@ int main(void) {
 		}
 		
 
-		if (seatbelt) {
-			fastenbelt = 0x00;
-		}
-		else {
-			if (seat && key) {
-				fastenbelt = 0x80;
-			}
-			else {
-				fastenbelt = 0x00;
-			}
-		}
 
 
-		PORTC = light | lowFuel | fastenbelt;
+
+
+
+
+
+
+
+
+
+
+
+		PORTC = light | lowFuel;
 
 
 
