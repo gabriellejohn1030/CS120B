@@ -37,7 +37,7 @@ int main(void) {
 		tempB = 0x02;
 	}
 	else if (weight > 5 && weight < 70) {
-		tempB = 0x00;
+		tempB = 0x04;
 	}
 	else {
 		tempB = 0x00;
