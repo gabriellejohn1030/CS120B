@@ -47,51 +47,60 @@ int main(void) {
 */
 
  while(1) {
-	unsigned char fuelLevel = PINA & 0x0F;
-	unsigned char light = 0;
-	unsigned char lowFuel = 0;
+
+
+		unsigned char fuelLevel = PINA & 0x0F;
+		unsigned char light = 0;
+		unsigned char lowFuel = 0;
 	
-	unsigned char key = GetBit(PINA, 4);
-	unsigned char seat = GetBit(PINA,5);
-	unsigned char seatbelt = GetBit(PINA, 6);
-	unsigned char fastenbelt = 0;
+		unsigned char key = GetBit(PINA, 4);
+		unsigned char seat = GetBit(PINA, 5);
+		unsigned char seatbelt = GetBit(PINA, 6);
+		unsigned char fastenbelt = 0;
+        
+        	if (fuelLevel == 0) {
+        	    lowFuel = 0x40;
+        	}	
 	
-	if (fuelLevel == 0) {
-		lowFuel = 0x40;
-	}
-	if (fuelLevel == 2 || fuelLevel == 1) {
-		light = 0x20;
-		lowFuel = 0x40;
-	}
-	if (fuelLevel == 3 || fuelLevel == 4) {
-		light = 0x30;
-		lowFuel = 0x40;
-	}
-	if (fuelLevel == 5 || fuelLevel == 6) {
-		light = 0x38;
-	}
-	if (fuelLevel == 13 || fuelLevel == 14 || fuelLevel == 15) {
-		light 0x3F;
-	}
-	if (fuelLevel == 10 || fuelLevel == 11 || fuelLevel == 12) {
-		light = 0x3E;
-	}
-	if (fuelLevel == 7 || fuelLevel == 8 || fuelLevel == 9) {
-		light = 0x3C;
-	}
-	if (seatbelt) {
-		fastenbelt = 0x00;
-	}
-	else {
-		if (seat && key) {
-			fastenbelt = 0x80;
+		if (fuelLevel == 2 || fuelLevel == 1) {
+			light = 0x20;
+			lowFuel = 0x40;
 		}
-		else {
+		if (fuelLevel == 3 || fuelLevel == 4) {
+			light = 0x30;
+			lowFuel = 0x40;
+		}
+		if (fuelLevel == 5 || fuelLevel == 6) {
+			light = 0x38;
+		
+		}
+		if (fuelLevel == 13 || fuelLevel == 14 || fuelLevel == 15) {
+			light = 0x3F;
+		}
+		if (fuelLevel == 10 || fuelLevel == 11 || fuelLevel == 12) {
+			light = 0x3E;
+		}
+		if (fuelLevel ==7 || fuelLevel == 8 || fuelLevel == 9) {
+			light = 0x3C;
+		}
+		
+
+		if (seatbelt) {
 			fastenbelt = 0x00;
 		}
-	}
-		
-	PORTC = light | lowFuel | fastenbelt;
+		else {
+			if (seat && key) {
+				fastenbelt = 0x80;
+			}
+			else {
+				fastenbelt = 0x00;
+			}
+		}
+
+
+		PORTC = light | lowFuel | fastenbelt;
+
+
 
  }
     return 0;
