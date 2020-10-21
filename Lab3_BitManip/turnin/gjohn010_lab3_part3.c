@@ -80,21 +80,22 @@ int main(void) {
 			light = 0x3C;
 		}
 		
+		
+		if (seatbelt) {
+			fastenbelt = 0x00;
+		}
+		else {
+			if (seat && key) {
+				fastenbelt = 0x80;
+			}
+			else {
+				fastenbelt = 0x00;
+			}
+		}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-		PORTC = light | lowFuel;
+		PORTC = light | lowFuel | fastenbelt;
 
 
 

@@ -1,7 +1,7 @@
 /*	Author: gjohn010
  *  Partner(s) Name: 
- *	Lab Section:023
- *	Assignment: Lab #3  Exercise #2
+ *	Lab Section:
+ *	Assignment: Lab #  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -22,16 +22,43 @@ int main(void) {
 	PORTA = 0xFF;
 	DDRC = 0xFF;
 	PORTC = 0x00;
-
-
+//	DDRB = 0x00;
+//	PORTB = 0xFF;
     /* Insert your solution below */
+  /*  while (1) {
+	unsigned char tempA = PINA;
+	unsigned tempB = PINB;
+	unsigned char counter = 0;
+	unsigned char i;
+	for (i = 0; i < 8; ++i) {
+		if(GetBit(tempA, i)) {
+			++counter;
+		}
+	}
+	for (i = 0; i < 8; ++i) {
+		if(GetBit(tempB, i)) {
+			++counter;
+		}
+	}
+	PORTC = counter;
+
+
+    }
+*/
+
  while(1) {
-	unsigned char fuelLevel = PINA & 0x0F;
-	unsigned char light = 0;
-	unsigned char lowFuel = 0;
 
 
-		if (fuelLevel == 2 || fuelLevel == 1 || fuelLevel == 0) {
+		unsigned char fuelLevel = PINA & 0x0F;
+		unsigned char light = 0;
+		unsigned char lowFuel = 0;
+	
+        
+        	if (fuelLevel == 0) {
+        	    lowFuel = 0x40;
+        	}	
+	
+		if (fuelLevel == 2 || fuelLevel == 1) {
 			light = 0x20;
 			lowFuel = 0x40;
 		}
@@ -52,11 +79,25 @@ int main(void) {
 		if (fuelLevel ==7 || fuelLevel == 8 || fuelLevel == 9) {
 			light = 0x3C;
 		}
+		
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 		PORTC = light | lowFuel;
-	}	
-   return 0;
 
+
+
+ }
+    return 0;
 }
