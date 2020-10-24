@@ -12,59 +12,89 @@
 #include "simAVRHeader.h"
 #endif
 
+tates {start, s0, inc, dec, zero} my_state;
 
-enum States { Start, PBZero, PBOne } state;
-
-
-void Tick() {
-	switch(state) {
-		case Start:
-			state = PBZero;
+void tick() {
+       switch(my_state) {
+               case start:
+                       my_state = s0;
+                       break;
+               case s0:
+			if (PINA == 0x01) {
+				my_state = inc;
+			}
+			else if (PINA == 2) {
+				my_state = dec;
+			}
+			else if (PINA == 0x03) {
+				my_state = zero;
+			}
 			break;
-		case PBZero:
-			if (!PINA) {
-				state = PBZero;
-			}
-			else if (PINA) {
-				state = PBOne;
-			}
+		case inc:
+			my_state = s0;
 			break;
-		case PBOne: 
-			if (!PINA) {
-				state = PBOne;
-			}
-			else if (PINA) {
-				state = PBZero;
-			}
+		case dec:
+			my_state = s0;
+			break;
+		case zero:
+			my_state = s0;
+			break;
+		default:
+			my_state = start;
 			break;
 	}
 
-	switch(state) {
-		case PBZero:	
-			PORTB = 0x01;	
+	switch(my_state) {
+		case start:
+			PORTC = 0x07;
 			break;
-		case PBOne:
-			PORTB = 0x02;
+		case s0:
+			break;
+		case inc:
+			if (PORTC < 9){
+				PORTC++;	
+			}
+			break;
+		case dec:
+			if (PORTC > 0) {
+				PORTC = PORTC - 0x01;
+			}
+			break;
+		case zero:
+			PORTC = 0;
 			break;
 		default:
-		break;
+			break;
 	}
 }
 
 int main(void) {
-   /* Insert DDR and PORT initializations*/ 
-	state = Start;
-	DDRA = 0x00;
-	PORTA = 0xFF;
-	DDRB = 0xFF;
-	PORTB = 0x00;
-   /* Insert your solution below */
-    while (1) {
-	Tick();
-    }
+	DDRA = 0x00; PORTA = 0xFF;
+	DDRB = 0xFF; PORTB = 0x00;
+	
+	my_state = start;
 
+	PORTC = 0x07;
+
+	while(1) {
+		tick();
+	}
+
+
+
+
+	
+return 0;
 }
 
+
+
+
+
+
+
+
+    
 
 
 
