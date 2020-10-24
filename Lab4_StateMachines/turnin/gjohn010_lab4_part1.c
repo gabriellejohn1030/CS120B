@@ -13,8 +13,6 @@
 #endif
 
 enum States { Start, PBZero, PBOne } state;
-unsigned char tempA = 0x00;
-unsigned char tempB = 0x00;
 
 
 void Tick() {
@@ -23,44 +21,35 @@ void Tick() {
 			state = PBZero;
 			break;
 		case PBZero:
-			if (tempA == 0x01) {
-				state = PBOne;
-			}
-			else {
+			if (!PINA) {
 				state = PBZero;
+			}
+			else if (PINA) {
+				state = PBOne;
 			}
 			break;
 		case PBOne: 
-			if (tempA == 0x01) {
-				state = PBZero;
-			}
-			else {
+			if (!PINA) {
 				state = PBOne;
 			}
+			else if (PINA) {
+				state = PBZero;
+			}
 			break;
-		default:
-		{
-			break;}
-	}
+
+
 	switch(state) {
-		case Start:
-		{
-			break;}
-	
 		case PBZero:	
-			tempB = 0x01;
-			PORTB = tempB;
+			PORTB = 0x01;	
 			break;
 		case PBOne:
-			tempB = 0x02;
-			PORTB = tempB;
+			PORTB = 0x02;
 			break;
 		default:
-		{
-			break;}
+		break;
 	}
 }
-int main() {
+int main(void) {
     /* Insert DDR and PORT initializations */
 	state = Start;
 	DDRA = 0x00;
@@ -69,7 +58,6 @@ int main() {
 	PORTB = 0x00;
     /* Insert your solution below */
     while (1) {
-	tempA = PINA;
 	Tick();
     }
     return 0;
