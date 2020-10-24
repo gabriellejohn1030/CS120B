@@ -48,6 +48,7 @@ void Tick() {
 		default:
 		break;
 	}
+	}
 }
 int main() {
     /* Insert DDR and PORT initializations */
