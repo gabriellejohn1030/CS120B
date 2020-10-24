@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States { Start, PB0, PB1 } state;
+enum States { Start, PBZero, PBOne } state;
 unsigned char tempA = 0x00;
 unsigned char tempB = 0x00;
 
@@ -20,22 +20,22 @@ unsigned char tempB = 0x00;
 void Tick() {
 	switch(state) {
 		case Start:
-			state = PB0;
+			state = PBZero;
 			break;
-		case PB0:
+		case PBZero:
 			if (tempA == 0x01) {
-				state = PB1;
+				state = PBOne;
 			}
 			else {
-				state = PB0;
+				state = PBZero;
 			}
 			break;
-		case PB1: 
+		case PBOne: 
 			if (tempA == 0x01) {
-				state = PB0;
+				state = PBZero;
 			}
 			else {
-				state = PB1;
+				state = PBOne;
 			}
 			break;
 		default:
@@ -47,11 +47,11 @@ void Tick() {
 		{
 			break;}
 	
-		case PB0:	
+		case PBZero:	
 			tempB = 0x01;
 			PORTB = tempB;
 			break;
-		case PB1:
+		case PBOne:
 			tempB = 0x02;
 			PORTB = tempB;
 			break;
