@@ -49,7 +49,7 @@ void Tick() {
 		break;
 	}
 }
-int main(void) {
+int main() {
     /* Insert DDR and PORT initializations */
 	state = Start;
 	DDRA = 0x00;
