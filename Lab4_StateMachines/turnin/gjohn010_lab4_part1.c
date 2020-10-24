@@ -60,5 +60,5 @@ int main() {
     while (1) {
 	Tick();
     }
-    return 0;
+
 }
