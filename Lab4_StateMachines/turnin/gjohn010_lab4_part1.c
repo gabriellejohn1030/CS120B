@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-tates {start, s0, inc, dec, zero} my_state;
+enum my_states {start, s0, inc, dec, zero} my_state;
 
 void tick() {
        switch(my_state) {
