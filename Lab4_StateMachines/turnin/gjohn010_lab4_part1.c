@@ -42,10 +42,10 @@ void tick() {
 	
 	switch (my_state) {
 		case s0:
-			PORTB = 0x01;
+			PORTB = 0x02;
 			break;
 		case s1:
-			PORTB = 0x02;
+			PORTB = 0x01;
 			break;
 		default:
 			break;
