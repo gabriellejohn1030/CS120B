@@ -12,6 +12,67 @@
 #include "simAVRHeader.h"
 #endif
 
+/*
+enum my_states { start, s0, s1 } my_state;
+
+void tick() {
+	switch (my_state) { //transitions
+		case start:
+			my_state = s0;		
+			break;
+		case s0:
+			if(!PINA) {
+				my_state = s0;
+			}
+			else {
+				my_state = s1;
+			}
+			break;
+		case s1:
+			if(!PINA) {
+				my_state = s0;
+			}
+			else {
+				my_state = s1;
+			}
+			break;
+		default:
+			my_state = start;
+			break;
+	}
+	
+	switch (my_state) {
+		case s0:
+			PORTB = 0x01;
+			break;
+		case s1:
+			PORTB = 0x02;
+			break;
+		default:
+			break;
+
+	}
+}
+
+int main(void) {
+	DDRA = 0x00; PORTA = 0xFF;
+	DDRB = 0xFF; PORTB = 0x00;
+        PORTB = 0x01;	
+	my_state = start;
+
+
+	while(1) {
+		tick();
+	}
+
+
+
+
+	
+return 0;
+}
+*/
+
 enum my_states { start, s0, inc, dec, zero } my_state;
 
 void tick() {
@@ -56,10 +117,10 @@ void tick() {
 			}
 			break;
 		case dec:
-			if (PORTC > 0) {
-				PORTC = PORTC - 0x01;
+			if (PORTC == 0x00) {
+				break;
 			}
-			break;
+			PORTC--;
 		case zero:
 			PORTC = 0;
 			break;
@@ -72,9 +133,9 @@ int main(void) {
 	DDRA = 0x00; PORTA = 0xFF;
 	DDRB = 0xFF; PORTB = 0x00;
 	
-	my_state = start;
+//	my_state = start;
 
-	PORTC = 0x07;
+//	PORTC = 0x07;
 
 	while(1) {
 		tick();
@@ -94,8 +155,56 @@ return 0;
 
 
 
-    
 
 
 
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
