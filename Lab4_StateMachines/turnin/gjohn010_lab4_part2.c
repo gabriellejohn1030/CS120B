@@ -117,12 +117,12 @@ void tick() {
 			}
 			break;
 		case dec:
-			if (PORTC == 0x00) {
-				break;
+			if (PORTC >  0x09) {
+				PORTC = PORTC - 0x01;
 			}
-			PORTC--;
+			break;
 		case zero:
-			PORTC = 0;
+			PORTC = 0x00;
 			break;
 		default:
 			break;
@@ -133,9 +133,8 @@ int main(void) {
 	DDRA = 0x00; PORTA = 0xFF;
 	DDRB = 0xFF; PORTB = 0x00;
 	
-//	my_state = start;
-
-//	PORTC = 0x07;
+	my_state = start;
+	PORTC = 0x07;
 
 	while(1) {
 		tick();
