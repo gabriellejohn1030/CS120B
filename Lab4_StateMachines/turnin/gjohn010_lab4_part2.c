@@ -117,7 +117,7 @@ void tick() {
 			}
 			break;
 		case dec:
-			if (PORTC >  0x09) {
+			if (PORTC > 0x00) {
 				PORTC = PORTC - 0x01;
 			}
 			break;
