@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum my_states {start, s0, s1} my_state;
+enum my_states { start, s0, s1 } my_state;
 
 void tick() {
 	switch (my_state) { //transitions
@@ -40,7 +40,7 @@ void tick() {
 			break;
 	}
 	
-	switch (my_state) { //actions, i remember not needing do do one for start
+	switch (my_state) {
 		case s0:
 			PORTB = 0x01;
 			break;
@@ -57,7 +57,7 @@ void tick() {
 int main(void) {
 	DDRA = 0x00; PORTA = 0xFF;
 	DDRB = 0xFF; PORTB = 0x00;
-        PORTB = 0x01;	
+      	PORTB = 0x01;
 	my_state = start;
 
 
