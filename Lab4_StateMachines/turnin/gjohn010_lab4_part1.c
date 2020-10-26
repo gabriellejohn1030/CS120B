@@ -28,7 +28,7 @@ void tick() {
 			}
 			break;
 		case s1:
-			if(!PINA) {
+			if(PINA) {
 				my_state = s0;
 			}
 			else {
