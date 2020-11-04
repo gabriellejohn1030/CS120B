@@ -118,14 +118,14 @@ void Tick()
 			
 			
 	}	
-	PORTB = tmpB;
+	PORTC = tmpB;
 	tmpB = 0x00;
 }
 
 int main(void)
 {
 	DDRA = 0x00; PORTA = 0xFF;
-	DDRB = 0xFF; PORTB = 0x00;
+	DDRC = 0xFF; PORTC = 0x00;
 
 	state = init;
 	while(1)
