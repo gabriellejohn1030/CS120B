@@ -106,7 +106,7 @@ void Tick() {
     }
     switch(state) { // State actions
         case INIT:
-            tmpB = 0x00; //initial at 0
+            tmpB = 0x07; //initial at 0
             PORTC = tmpB;
             break;
         case ADD:
@@ -138,7 +138,7 @@ void Tick() {
 int main() {
     state = START;
     DDRA = 0x00; PORTA = 0xFF;//input, initial at 1
-    DDRC = 0xFF; PORTC = 0x00;//output, initial at 0
+    DDRC = 0xFF; PORTC = 0x07;//output, initial at 7
     while(1) {
         tmpA = ~PINA & 0x03;//make sure  only PA1-PA0 work
         Tick();
