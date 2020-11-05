@@ -108,7 +108,7 @@ void Tick() {
     switch(state) { 
         case INIT:
             tmpC = 0x07; 
-            PORTC = tmpB;
+            PORTC = tmpC;
             break;
         case ADD:
             tmpC = tmpC + 0x01;
