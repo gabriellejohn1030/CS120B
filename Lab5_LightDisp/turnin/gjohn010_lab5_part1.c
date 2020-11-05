@@ -14,8 +14,9 @@
 
 enum states {init, empty, led1, led2, led3, led4, led5, led6} state;
 
-unsigned char tmpA = 0x00; unsigned char ledB = 0xFF;
-unsigned char tmpB = 0x00;
+unsigned char tmpA = 0x00; 
+unsigned char ledC = 0xFF;
+unsigned char tmpC = 0x00;
 
 
 void Tick() 
@@ -95,31 +96,31 @@ void Tick()
 		case init:
 			break;
 		case empty:
-			tmpB = 0x40;
+			tmpC = 0x40;
 			break;
 		case led1:
-			tmpB = 0x60;
+			tmpC = 0x60;
 			break;
 		case led2:
-			tmpB = 0x70;
+			tmpC = 0x70;
 			break;
 		case led3:
-			tmpB = 0x38;
+			tmpC = 0x38;
 			break;
 		case led4:
-			tmpB = 0x3C;
+			tmpC = 0x3C;
 			break;
 		case led5:
-			tmpB = 0x3E;
+			tmpC = 0x3E;
 			break;
 		case led6:
-			tmpB = 0x3F;
+			tmpC = 0x3F;
 			break;
 			
 			
 	}	
-	PORTC = tmpB;
-	tmpB = 0x00;
+	PORTC = tmpC;
+	tmpC = 0x00;
 }
 
 int main(void)
