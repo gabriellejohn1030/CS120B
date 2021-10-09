@@ -1,7 +1,7 @@
 /*	Author: gjohn010
  * 	Partner(s) Name: none
  *	Lab Section: 022
- *	Assignment: Lab #2  Exercise #3
+ *	Assignment: Lab #2  Exercise #2
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -33,14 +33,7 @@ int main(void) {
 	if (temp = 0x08) {
 		cntavail = cntavail - 1;
 	}
-
-	if (cntavail == 0x00) {
-		PORTC = 0x40;
-	}
-	else {
-
-		PORTC = cntavail & 0x0F; 
-	}
+	PORTC = cntavail; 
     }	
     
 
