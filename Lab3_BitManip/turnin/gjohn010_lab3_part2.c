@@ -1,7 +1,7 @@
 /*	Author: gjohn010
  *  Partner(s) Name: 
- *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Lab Section: 022
+ *	Assignment: Lab #3  Exercise #2
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -12,92 +12,41 @@
 #include "simAVRHeader.h"
 #endif
 
-unsigned char GetBit(unsigned char x, unsigned char k) {
-	return ((x & (0x01 << k)) != 0);
-}
 
 int main(void) {
     /* Insert DDR and PORT initializations */
-	DDRA = 0x00;
-	PORTA = 0xFF;
-	DDRC = 0xFF;
-	PORTC = 0x00;
-//	DDRB = 0x00;
-//	PORTB = 0xFF;
+	DDRA = 0x00; PORTA = 0xFF;
+	DDRC = 0xFF; PORTC = 0x00; //port c is the output and we are initializing it to 0
     /* Insert your solution below */
-  /*  while (1) {
-	unsigned char tempA = PINA;
-	unsigned tempB = PINB;
-	unsigned char counter = 0;
-	unsigned char i;
-	for (i = 0; i < 8; ++i) {
-		if(GetBit(tempA, i)) {
-			++counter;
-		}
-	}
-	for (i = 0; i < 8; ++i) {
-		if(GetBit(tempB, i)) {
-			++counter;
-		}
-	}
-	PORTC = counter;
 
-
+	unsigned char tmpA = 0x00; //holding temp value of port a and c
+	unsigned char tmpC = 0x00;
+	unsigned char lowFuel = 0x00;
+   while (1) {
+	tmpA = PINA & 0x0F;
+	tmpC = PINC & 0xC0;
+	lowFuel = PINC;
+	if (tmpA == 0x01 || tmpA == 0x02) {
+		tmpC = 0x20;
+		lowFuel = 0x40;
+	}
+	if (tmpA == 0x03 || tmpA == 0x04) {
+                tmpC = 0xF0;
+		lowFuel = 0x40;
+        }
+	if (tmpA == 0x05 || tmpA == 0x06 ) {
+                tmpC = 0xF8;
+        }
+	if (tmpA == 0x07 || tmpA == 0x08 || tmp == 0x09) {
+                tmpC = 0xFC;
+        }
+	if (tmpA == 0x0A || tmpA == 0x0B || tmpA == 0x0C) {
+                tmpC = 0xFE;
+        }
+	if (tmpA == 0x0D || tmpA == 0x0E || tmpA == 0x0F) {
+                tmpC = 0xFF;
+        }
+	PORTC = tmpC & lowFuel;
     }
-*/
-
- while(1) {
-
-
-		unsigned char fuelLevel = PINA & 0x0F;
-		unsigned char light = 0;
-		unsigned char lowFuel = 0;
-	
-        
-        	if (fuelLevel == 0) {
-        	    lowFuel = 0x40;
-        	}	
-	
-		if (fuelLevel == 2 || fuelLevel == 1) {
-			light = 0x20;
-			lowFuel = 0x40;
-		}
-		if (fuelLevel == 3 || fuelLevel == 4) {
-			light = 0x30;
-			lowFuel = 0x40;
-		}
-		if (fuelLevel == 5 || fuelLevel == 6) {
-			light = 0x38;
-		
-		}
-		if (fuelLevel == 13 || fuelLevel == 14 || fuelLevel == 15) {
-			light = 0x3F;
-		}
-		if (fuelLevel == 10 || fuelLevel == 11 || fuelLevel == 12) {
-			light = 0x3E;
-		}
-		if (fuelLevel ==7 || fuelLevel == 8 || fuelLevel == 9) {
-			light = 0x3C;
-		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		PORTC = light | lowFuel;
-
-
-
- }
-    return 0;
+  return 0;
 }
