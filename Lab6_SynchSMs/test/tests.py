@@ -14,19 +14,6 @@
 # An example set of tests is shown below. It is important to note that these tests are not "unit tests" in 
 # that they are not ran in isolation but in the order shown and the state of the device is not reset or 
 # altered in between executions (unless preconditions are used).
-<<<<<<< HEAD
-tests = [ {'description': 'PINA: 0x00 => PORTB: 0x02',
-    'steps': [ {'inputs': [('PINA', 0x00)], 'iterations': 5 } ],
-    'expected': [('PORTB', 0x02)],
-    },
-    {'description': 'PINA: 0x02 => PORTB: 0x02',
-    'steps': [ {'inputs': [('PINA', 0x02)],'iterations': 5}], # Set PIN to val then run one iteration
-    'expected': [('PORTB',0x02)],
-    },
-    {'description': 'PINA: 0x01 => PORTB: 0x01',
-    'steps': [ {'inputs': [('PINA',0x01)], 'iterations': 5 } ],
-    'expected': [('PORTB',0x01)],
-=======
 tests = [ {'description': 'This test will run first.',
     'steps': [ {'inputs': [('PINA',<val>)], 'iterations': 1 } ],
     'expected': [('PORT',<val>)],
@@ -37,16 +24,11 @@ tests = [ {'description': 'This test will run first.',
         {'inputs': [('PIN',<val>)], 'iterations': 1, 'expected': [('PORT',<val>)]}, 
         {'inputs': [('PIN',<val>)], 'time': 600}, ],
     'expected': [('PORT',<val>)],
->>>>>>> 99c8f6eafdcbed323a7563d0c643898cd344630b
     },
     ]
 
 # Optionally you can add a set of "watch" variables these need to be global or static and may need
 # to be scoped at the function level (for static variables) if there are naming conflicts. The 
 # variables listed here will display everytime you hit (and stop at) a breakpoint
-<<<<<<< HEAD
-#watch = ['PORTB']
-=======
 watch = ['<function>::<static-var>','PORTB']
->>>>>>> 99c8f6eafdcbed323a7563d0c643898cd344630b
 

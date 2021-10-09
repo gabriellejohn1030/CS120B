@@ -1,4 +1,4 @@
-# Test file for "Lab2_introToAVR"
+# Test file for "Lab6_SynchSMs"
 
 
 # commands.gdb provides the following functions for ease:
@@ -39,25 +39,6 @@ expectPORTC 0
 checkResult
 
 # Add tests below
-<<<<<<< HEAD
-=======
-test "PINA: 0x02, PINB:0x08, PINC: 0x10 => PORTD = 0"
-setPINA 0x02
-setPINB 0x08
-setPINC 0x10
-continue 5
-expectPORTD 0x00
-checkResult
-
-test "PINA 0x8C, PINB 0x04 PINC 0x09 =>  PORTD: 0x01"
-setPINA 0x8C
-setPINB 0x04
-setPINC 0x09
-continue 5
-expectPORTD 0x03
-checkResult
-
->>>>>>> 99c8f6eafdcbed323a7563d0c643898cd344630b
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed

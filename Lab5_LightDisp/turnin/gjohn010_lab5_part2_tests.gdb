@@ -1,4 +1,4 @@
-# Test file for "Lab2_introToAVR"
+# Test file for "Lab5_LightDisp"
 
 
 # commands.gdb provides the following functions for ease:
@@ -39,27 +39,36 @@ expectPORTC 0
 checkResult
 
 # Add tests below
-<<<<<<< HEAD
-=======
-test "PINA: 0x02, PINB:0x08, PINC: 0x10 => PORTD = 0"
-setPINA 0x02
-setPINB 0x08
-setPINC 0x10
-continue 5
-expectPORTD 0x00
+
+test "PINA: 0x00, 0x00, 0x00, 0x00 => PORTC: 0x07, state: INIT"
+set state = INIT
+setPINA 0xFF
+continue 2
+setPINA 0xFF
+continue 2
+setPINA 0xFF
+continue 2
+setPINA 0xFF
+continue 2
+expectPORTC 0x07
+expect state RESET
 checkResult
 
-test "PINA 0x8C, PINB 0x04 PINC 0x09 =>  PORTD: 0x01"
-setPINA 0x8C
-setPINB 0x04
-setPINC 0x09
-continue 5
-expectPORTD 0x03
+test "PINA: 0x01, 0x01, 0x01, 0x01 => PORTC: 0x09, state: WAIT"
+set state = INIT
+setPINA 0xFE
+continue 2
+setPINA 0xFE
+continue 2
+setPINA 0xFE
+continue 2
+setPINA 0xFE
+continue 2
+expectPORTC 0x03
+expect state WAIT
 checkResult
 
->>>>>>> 99c8f6eafdcbed323a7563d0c643898cd344630b
-
-# Report on how many tests passed/tests ran
+#Report on how many tests passed/tests ran
 set $passed=$tests-$failed
 eval "shell echo Passed %d/%d tests.\n",$passed,$tests
 echo ======================================================\n

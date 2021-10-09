@@ -39,8 +39,6 @@ expectPORTC 0
 checkResult
 
 # Add tests below
-<<<<<<< HEAD
-=======
 test "PINA: 0x02, PINB:0x08, PINC: 0x10 => PORTD = 0"
 setPINA 0x02
 setPINB 0x08
@@ -57,7 +55,6 @@ continue 5
 expectPORTD 0x03
 checkResult
 
->>>>>>> 99c8f6eafdcbed323a7563d0c643898cd344630b
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed

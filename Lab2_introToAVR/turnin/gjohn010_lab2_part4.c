@@ -1,9 +1,5 @@
 /*	Author: gjohn010
-<<<<<<< HEAD
- *  Partner(s) Name: 
-=======
  *  Partner(s) Name: none
->>>>>>> 99c8f6eafdcbed323a7563d0c643898cd344630b
  *	Lab Section:
  *	Assignment: Lab #  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
@@ -17,28 +13,6 @@
 #endif
 
 int main(void) {
-<<<<<<< HEAD
-    /* Insert DDR and PORT initializations */
-	DDRA = 0x00; PORTA = 0xFF;
-	DDRB = 0xFF; PORTB = 0x00;
-
-	unsigned char tmpB = 0x00;
-	unsigned char tmpA = 0x00;
-    /* Insert your solution below */
-    while (1) {
-	tmpA = PINA & 0x01;
-	
-	if (tmpA == 0x01) {
-		tmpB = (tmpB & 0xFC) | 0x01;
-
-    	}
-	else {
-		tmpB = (tmpB & 0xFC) | 0x02;
-	}
-	PORTB = tmpB;
-    }	
-    return 1;
-=======
     DDRA = 0x00; PORTA = 0xFF; // Configure port A's 8 pins as inputs
     DDRB = 0x00; PORTB = 0xFF;
     DDRC = 0x00; PORTC = 0xFF;
@@ -101,5 +75,4 @@ int main(void) {
 
   }
     return 0;
->>>>>>> 99c8f6eafdcbed323a7563d0c643898cd344630b
 }
