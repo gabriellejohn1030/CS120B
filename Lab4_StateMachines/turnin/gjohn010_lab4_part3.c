@@ -12,8 +12,8 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States { Start, door_state, unlock } state;
-unsigned char tmpA - 0x00;
+enum States { Start, door_state, unlock, lock } state;
+unsigned char tmpA = 0x00;
 
 void Tick() {
 	switch(state) {
