@@ -20,22 +20,22 @@ unsigned char tmp2 = 0x00;
 void Tick() {
 	switch(state) {
 		case Start:
-			state = PB0;
+			state = start;
 			break;
 		case PB0:
-			if (tmp1 == 0x01) {
-				state = PB1;
+			if (PINB == 0x01) {
+				state = ON;
 			}
 			else {
-				state = PB0;
+				state = OFF;
 			}
 			break;
 		case PB1: 
-			if (tmp1 == 0x01) {
-				state = PB0;
+			if (PINB == 0x02) {
+				state = ON;
 			}
 			else {
-				state = PB1;
+				state = OFF;
 			}
 			break;
 		default:
@@ -47,13 +47,13 @@ void Tick() {
 		{
 			break;}
 	
-		case PB0:	
+		case ON:	
 			tmp2 = 0x01;
-			PORTB = tempB;
+			PORTB = tmp2;
 			break;
-		case PB1:
-			tmp2 = 0x02;
-			PORTB = tempB;
+		case OFF:
+			tmp2 = 0x01;
+			PORTB = tmp2;
 			break;
 		default:
 		{
@@ -65,9 +65,10 @@ int main() {
 	state = Start;
 	DDRB = 0xFF;
 	PORTB = 0x00;
+	
     /* Insert your solution below */
     while (1) {
-	tempA = PINA;
+	
 	Tick();
     }
     return 0;
