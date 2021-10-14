@@ -1,7 +1,7 @@
-/*	Author: gjohn010
+/*	Author: lab
  *  Partner(s) Name: 
- *	Lab Section: 023
- *	Assignment: Lab #5  Exercise #2
+ *	Lab Section:
+ *	Assignment: Lab #  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -13,136 +13,69 @@
 #endif
 
 
+enum States { Start, PA0, PA1, reset } state;
+unsigned char tmp1 = 0x00;
+unsigned char tmp2 = 0x00;
+unsigned char output = 7;
 
-enum States { START, INIT, ADD, SUB, STOP, RESET, HOLD, RELEASE } state;
-unsigned char tmpA = 0x00;
-unsigned char tmpC = 0x00;
-unsigned int count;
 void Tick() {
-    switch(state) { 
-        case START:
-            state = INIT;
-            break;
-        case INIT:
-            if (tmpA == 0x01) {
-                state = ADD;
-            }
-            else if (tmpA == 0x02) { 
-                state = SUB;
-            }
-            else if (tmpA == 0x03) { 
-                state = RESET;
-            }
-            break;
-        case ADD:
-            if (tmpA == 0x02) { 
-                state = SUB;
-            }
-            else if (tmpC == 0x09) { 
-                state = STOP;
-            }
-            else if (tmpA == 0x03) { 
-                state = RESET;
-            }
-			else if ( tmpA == 0x01)
-			{
-				state = HOLD;
-			}
-            break;
-        case SUB:
-            if (tmpA == 0x01) { 
-                state = ADD;
-            }
-            else if (tmpC == 0x00) { 
-                state = STOP;
-            }
-            else if (tmpA == 0x03) { 
-                state = RESET;
-            }
-			else if (tmpA ==0x02)
-			{
-				state = HOLD;
-			}
-            break;
-        case STOP:
-			if (tmpA == 0x01 && tmpC != 0x09)
-			{
-				state = ADD;
-			}
-            if (tmpA == 0x02 && tmpC != 0x00) { 
-                state = SUB;
-            }
-            else if (tmpA == 0x03) { 
-                state = RESET;
-            }
-            break;
-		case HOLD:
-			if (tmpA == 0x00)
-			{
-				state = RELEASE;
-			}
-			if (tmpA == 0x03)
-			{
-				state = RESET;
+	switch(state) {
+		case Start:
+			state = Start;
+			break;
+		case PA0:
+			if (PINA == 0x01) {
+				state = PA0 ;
+			
 			}
 			break;
-		case RELEASE:
-            if (tmpA == 0x01) { 
-	            state = ADD;
-            }
-            else if (tmpA == 0x02) { 
-	            state = SUB;
-            }
-            else if (tmpA == 0x03) { 
-	            state = RESET;
-            }
-            break;			
-        case RESET:
-            if (tmpA == 0x01) {
-                state = ADD;
-            }
-            break;
-        default:
-            break;
-    }
-    switch(state) { 
-        case INIT:
-            tmpC = 0x07; 
-            PORTC = tmpC;
-            break;
-        case ADD:
-            tmpC = tmpC + 0x01;
-            PORTC = tmpC;
-            break;
-        case SUB:
-            if (tmpC == 0x00) {
-                break;     
-            }         
-            tmpC = tmpC - 0x01;
-            PORTC = tmpC;   
-            break;
-        case STOP:
-            break;
-		case HOLD:
+		case PA1: 
+			if (PINA == 0x02) {
+				state = PA1;
+			}
 			break;
-		case RELEASE:
+		case reset:
+			if (PINA == 0x01 && PINA == 0x02) {
+				state = reset;
+			}
+		default:
+		{
+			break;}
+	}
+	switch(state) {
+		case Start:
+		{       PORTC = 0x07;
 			break;
-        case RESET:
-            tmpC = 0x00;
-            PORTC = tmpC;
-            break;
-        default:
-            break;
-    }
+		}
+		case PA0:	
+			if (PORTC < 0x09){
+				PORTC++;
+				
+			}
+			break;
+		case PA1:
+			if (PORTC > 0x00) {
+				PORTC--;
+			
+			}
+			break;
+		case reset:
+			PORTC = 0x00;	
+		default:
+		{
+			break;}
+	}
 }
-
 int main() {
-    state = START;
-    DDRA = 0x00; PORTA = 0xFF;
-    DDRC = 0xFF; PORTC = 0x07;
-    while(1) {
-	tmpA = ~PINA & 0x03;
-        Tick();
-    }
-}
+    /* Insert DDR and PORT initializations */
+	state = Start;
+	DDRA = 0x00; PORTA = 0xFF;
+	DDRC = 0xFF; PORTC = 0x00;
 
+    /* Insert your solution below */
+    while (1) {
+
+	Tick();
+    }
+    return 0;
+}
