@@ -37,7 +37,7 @@ int main(void) {
 	if (tmpA == 0x05 || tmpA == 0x06 ) {
                 tmpC = 0xF8;
         }
-	if (tmpA == 0x07 || tmpA == 0x08 || tmp == 0x09) {
+	if (tmpA == 0x07 || tmpA == 0x08 || tmpA == 0x09) {
                 tmpC = 0xFC;
         }
 	if (tmpA == 0x0A || tmpA == 0x0B || tmpA == 0x0C) {
