@@ -24,27 +24,27 @@ int main(void) {
 	unsigned char lowFuel = 0x00;
    while (1) {
 	tmpA = PINA & 0x0F;
-	tmpC = PINC & 0xC0;
+	tmpC = PINC & 0x00;
 	lowFuel = PINC;
 	if (tmpA == 0x01 || tmpA == 0x02) {
 		tmpC = 0x20;
 		lowFuel = 0x40;
 	}
 	if (tmpA == 0x03 || tmpA == 0x04) {
-                tmpC = 0xF0;
+                tmpC = 0x30;
 		lowFuel = 0x40;
         }
 	if (tmpA == 0x05 || tmpA == 0x06 ) {
-                tmpC = 0xF8;
+                tmpC = 0x38;
         }
 	if (tmpA == 0x07 || tmpA == 0x08 || tmpA == 0x09) {
-                tmpC = 0xFC;
+                tmpC = 0x3C;
         }
 	if (tmpA == 0x0A || tmpA == 0x0B || tmpA == 0x0C) {
-                tmpC = 0xFE;
+                tmpC = 0x3E;
         }
 	if (tmpA == 0x0D || tmpA == 0x0E || tmpA == 0x0F) {
-                tmpC = 0xFF;
+                tmpC = 0x3F;
         }
 	PORTC = tmpC & lowFuel;
     }
