@@ -1,7 +1,7 @@
 /*	Author: lab
  *  Partner(s) Name: 
  *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Assignment: Lab #5  Exercise #2
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -12,31 +12,28 @@
 #include "simAVRHeader.h"
 #endif
 
-
-enum States { Start, PA0, PA1, reset } state;
-unsigned char tmp1 = 0x00;
-unsigned char tmp2 = 0x00;
+enum States { Start, PA0, PA1, increment, decrement,zero, reset } state;
 unsigned char output = 7;
 
 void Tick() {
 	switch(state) {
 		case Start:
-			state = Start;
+			PORTC = 0x07;
 			break;
 		case PA0:
 			if (PINA == 0x01) {
-				state = PA0 ;
+				state = increment;
 			
 			}
 			break;
 		case PA1: 
 			if (PINA == 0x02) {
-				state = PA1;
+				state = decrement;
 			}
 			break;
 		case reset:
-			if (PINA == 0x01 && PINA == 0x02) {
-				state = reset;
+			if (PINA == 0x03) {
+				state = zero;
 			}
 		default:
 		{
@@ -47,19 +44,19 @@ void Tick() {
 		{       PORTC = 0x07;
 			break;
 		}
-		case PA0:	
+		case increment:	
 			if (PORTC < 0x09){
 				PORTC++;
 				
 			}
 			break;
-		case PA1:
+		case decrement:
 			if (PORTC > 0x00) {
 				PORTC--;
 			
 			}
 			break;
-		case reset:
+		case zero:
 			PORTC = 0x00;	
 		default:
 		{
