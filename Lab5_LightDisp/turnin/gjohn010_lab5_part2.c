@@ -33,15 +33,25 @@ void Tick() {
 			}
 			break;
 		case next_state:
-			if (PINA == 0x01 || PINA == 0x02) {
+			if ((PINA == 0x01) || (PINA == 0x02)) {
 				state = next_state;
 			}
-			else if (PINA == 0x01 || PINA == 0x02) {
+			else if ((PINA == 0x01) && (PINA == 0x02)) {
 				state = zero;
 			}
 			else {
 				state = Start;
 			}
+			break;
+		case increment:
+			state = next_state;
+			break;
+		case decrement:
+			state = next_state;
+			break;
+		case zero:
+			state = next_stete;
+			break;
 		default:
 		{
 			break;}
