@@ -12,40 +12,48 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States { Start, increment, decrement, zero } state;
+enum States { Start, decide, increment, decrement, zero } state;
 unsigned char output = 7;
 
 void Tick() {
-	switch(state) {
+	switch(state) { //transitions
 		case Start:
 			PORTC = 7;
 			state = Start;
 			break;
-		case increment:
+		case decide:
 			if (PINA == 0x01) {
-				state = increment;
-			
-			}
-			break;
-		case decrement: 
-			if (PINA == 0x02) {
+				state = increment;	
+			} 
+			else if (PINA == 0x02) {
 				state = decrement;
 			}
-			break;
-		case zero:
-			if (PINA == 0x03) {
+			else if (PINA == 0x03) {
 				state = zero;
 			}
 			break;
+		case next_state:
+			if (PINA == 0x01 || PINA == 0x02) {
+				state = next_state;
+			}
+			else if (PINA == 0x01 || PINA == 0x02) {
+				state = zero;
+			}
+			else {
+				state = Start;
+			}
 		default:
 		{
 			break;}
-	}
-	switch(state) {
+		}
+	switch(state) { //actions
 		case Start:
 		{       
 			break;
 		}
+		case next_state:
+			break;
+
 		case increment:	
 			if (PORTC < 9){
 				PORTC = PORTC + 1;
