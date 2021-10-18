@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States { Start, decide, increment, decrement, zero } state;
+enum States { Start, decide, next_state, increment, decrement, zero } state;
 unsigned char output = 7;
 
 void Tick() {
