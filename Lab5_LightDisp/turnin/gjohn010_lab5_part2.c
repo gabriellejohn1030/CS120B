@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States { Start, increment, decrement, zero, reset } state;
+enum States { Start, increment, decrement, zero } state;
 unsigned char output = 7;
 
 void Tick() {
@@ -42,23 +42,23 @@ void Tick() {
 	}
 	switch(state) {
 		case Start:
-		{       PORTC = 0x07;
+		{       PORTC = 7;
 			break;
 		}
 		case increment:	
-			if (PORTC < 0x09){
+			if (PORTC < 9){
 				PORTC = PORTC + 1;
 				
 			}
 			break;
 		case decrement:
-			if (PORTC > 0x00) {
+			if (PORTC > 0) {
 				PORTC = PORTC - 1;
 			
 			}
 			break;
 		case zero:
-			PORTC = 0x00;	
+			PORTC = 0;	
 		default:
 		{
 			break;}
