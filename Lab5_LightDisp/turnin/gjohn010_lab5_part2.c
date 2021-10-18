@@ -18,6 +18,7 @@ unsigned char output = 7;
 void Tick() {
 	switch(state) {
 		case Start:
+			PORTC = 7;
 			state = Start;
 			break;
 		case increment:
@@ -42,7 +43,7 @@ void Tick() {
 	}
 	switch(state) {
 		case Start:
-		{       PORTC = 7;
+		{       
 			break;
 		}
 		case increment:	
