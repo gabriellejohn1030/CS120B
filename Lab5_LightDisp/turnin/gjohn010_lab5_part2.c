@@ -19,7 +19,7 @@ void Tick() {
 	switch(state) { //transitions
 		case Start:
 			PORTC = 7;
-			state = Start;
+			state = decide;
 			break;
 		case decide:
 			if (PINA == 0x01) {
