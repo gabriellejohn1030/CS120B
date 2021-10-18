@@ -50,7 +50,7 @@ void Tick() {
 			state = next_state;
 			break;
 		case zero:
-			state = next_stete;
+			state = next_state;
 			break;
 		default:
 		{
