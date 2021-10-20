@@ -9,11 +9,6 @@ volatile unsigned char TimerFlag = 0; // TimerISR() sets this to 1. C programmer
 unsigned long _avr_timer_M = 1; // Start count from here, down to 0. Default 1ms
 unsigned long _avr_timer_cntcurr = 0; // Current internal count of 1ms ticks
 
-// Set TimerISR() to tick every M ms
-void TimerSet(unsigned long M) {
-	_avr_timer_M = M;
-	_avr_timer_cntcurr = _avr_timer_M;
-}
 
 void TimerOn() {
 	// AVR timer/counter controller register TCCR1
@@ -59,6 +54,11 @@ ISR(TIMER1_COMPA_vect)
 		TimerISR(); 				// Call the ISR that the user uses
 		_avr_timer_cntcurr = _avr_timer_M;
 	}
+}
+
+void TimerSet(unsigned long M) {
+	_avr_timer_M = M;
+	_avr_timer_cntcurr = _avr_timer_M;
 }
 
 #endif //TIMER_H
