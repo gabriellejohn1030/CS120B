@@ -23,7 +23,7 @@ void Tick() {
 		case Start:
 			if (PA0 = 0x01) {
 				state = light;
-				PA0 = 0;
+				PA0 = 0x00;
 			}
 			break;		
 		case light:
@@ -45,8 +45,8 @@ void Tick() {
 			while (PA0 = 0x00) {
 				PB0 = 0x01;
 				Tick(300);
-				PB0 = 0;
-				PB1 = 1;
+				PB0 = 0x00;
+				PB1 = 0x01;
 				Tick(300);
 				PB1 = 0x00;
 				PB2 = 0x01;
