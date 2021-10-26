@@ -1,8 +1,8 @@
 /*	Author: gabbyjohn
  *  Partner(s) Name: 
  *	Lab Section: 022
- *	Assignment: Lab #6  Exercise #1
- *	DEMO LINK: https://www.youtube.com/watch?v=MRyKx0iiylo
+ *	Assignment: Lab #6  Exercise #2
+ *	DEMO LINK: https://www.youtube.com/watch?v=RM1ekfdGiH8
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -60,21 +60,41 @@ void TimerSet(unsigned long M) {
 
 
 
-enum States {Start, PortZero, PortOne, PortTwo} state;
+enum States {Start, PortZero, PortOne, PortTwo, Pause} state;
+
+unsigned int count = 0;
 
 void Tick() {
 	switch(state) { //transitions
 		case Start:
 			state = PortZero;
 			break;		
-		case PortZero:
+		case PortZero:	
+			if (~PINA & 0x01) {
+                                state = Pause;
+				count = 1;
+                        }
 			state = PortOne;
 			break;
 		case PortOne:
+			if (~PINA & 0x01) {
+                                state = Pause;
+				count = 2;
+                        }
 			state = PortTwo;
 			break;
-		case PortTwo:
+		case PortTwo:;
+			if (~PINA == 0x01) {
+                                state = Pause;
+				count = 3;
+                        }
 			state = PortZero;
+			break;
+		case Pause:
+			PINA & 0x00;
+			if (~PINA & 0x01) {
+				state = Start;
+			}
 			break;
 		default:
 			state = Start;
@@ -92,6 +112,20 @@ void Tick() {
 		case PortTwo:
 			PORTB = 0x04;
 			break;
+		case Pause:
+			if (count == 1) {
+				PORTB = 0x01;
+				count = 0;
+			}
+			else if (count == 2) {
+				PORTB = 0x02;
+				count = 0;
+			}
+			else if (count == 3) {
+				PORTB = 0x04;
+				count = 0;
+			}
+			break;
 		default:
 			break;
 	}
@@ -102,10 +136,13 @@ void Tick() {
 
 int main() {
     /* Insert DDR and PORT initializations */
+	DDRA = 0x00;
+	PORTA = 0xFF;
 	DDRB = 0xFF;
 	PORTB = 0x00;
-	TimerSet(100); //1000ms = 1 second
+	TimerSet(300); //1000ms = 1 second
 	TimerOn();
+	state = Start;
     /* Insert your solution below */
     while (1) {
 	Tick();
