@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdio.h>
-#include "io.h"
+#include "../header/io.h"
 
 #define SET_BIT(p,i) ((p) |= (1 << (i)))
 #define CLR_BIT(p,i) ((p) &= ~(1 << (i)))
@@ -21,7 +21,8 @@ void LCD_ClearScreen(void) {
 }
 
 void LCD_init(void) {
-     //wait for 100ms
+
+    //wait for 100 ms.
 	delay_ms(100);
 	LCD_WriteCommand(0x38);
 	LCD_WriteCommand(0x06);
@@ -59,11 +60,11 @@ void LCD_DisplayString( unsigned char column, const unsigned char* string) {
 
 void LCD_Cursor(unsigned char column) {
    if ( column < 17 ) { // 16x1 LCD: column < 9
-				// 16x2 LCD: column < 17
+						// 16x2 LCD: column < 17
       LCD_WriteCommand(0x80 + column - 1);
    } else {
       LCD_WriteCommand(0xB8 + column - 9);	// 16x1 LCD: column - 1
-										// 16x2 LCD: column - 9
+											// 16x2 LCD: column - 9
    }
 }
 
@@ -77,4 +78,3 @@ void delay_ms(int miliSec) //for 8 Mhz crystal
    asm("nop");
   }
 }
-
