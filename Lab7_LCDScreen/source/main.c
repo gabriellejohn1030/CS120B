@@ -124,23 +124,23 @@ void Tick()
 			break;
 		
 		case Inc:
-			if (PORTC < 9) {
-				PORTC = PORTC + 1;
-				num = PORTC;
+			if (PORTB < 9) {
+				PORTB = PORTB + 1;
+				num = PORTB;
 				LCD_WriteData(num + '0');
 		}
 		break;
 
 		case Dec:
-			if (PORTC > 0) {
-				PORTC = PORTC - 1;
-				num = PORTC;
+			if (PORTB > 0) {
+				PORTB = PORTB - 1;
+				num = PORTB;
 				LCD_WriteData(num + '0');
 		}
 		break;
 		
 		case Zero:
-			PORTC = 0;
+			PORTB = 0;
 			LCD_WriteData(0 +'0');
 			break;
 
@@ -153,6 +153,7 @@ void Tick()
 int main(void)
 {
 	DDRA = 0x00; PORTA = 0xFF;
+	DDRB = 0xFF; PORTB = 0x00;
 	DDRC = 0xFF; PORTC = 0x00; // LCD data lines
 	DDRD = 0xFF; PORTD = 0x00; // LCD control lines
 	TimerSet(500);
