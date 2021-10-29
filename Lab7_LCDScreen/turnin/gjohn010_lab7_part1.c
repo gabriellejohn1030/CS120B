@@ -2,7 +2,7 @@
  *  Partner(s) Name: 
  *	Lab Section: 022
  *	Assignment: Lab #7  Exercise #1
- *	DEMO LINK: https://www.youtube.com/watch?v=MRyKx0iiylo
+ *	DEMO LINK: https://www.youtube.com/watch?v=UrgA_Iz_dVY
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -10,8 +10,7 @@
  */
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "io.c"
-
+#include "../header/io.h"
 
 volatile unsigned char TimerFlag = 0; // TimerISR() sets this to 1. Cprogrammer should clear to 0.
 
@@ -63,10 +62,11 @@ enum States {Start, Init, Wait, Inc, Dec, Zero} state;
 void Tick()
 {
 	int num = 0;
+	unsigned char temp = ~PINA&0x0F;
+
 	switch(state) {   // Transitions
 		case Start:  
 			state = Init;
-			unsigned temp = ~PINA&0x0F;
 			break;
 
 		case Init:
@@ -90,7 +90,7 @@ void Tick()
 			else if ((temp == 0x02)){
 				state = Dec;
 			}
-			else if ((temp == 0x01)&&(temp == 0x02)){
+			else if ((temp == 0x01) && (temp == 0x02)){
 				state = Zero;
 			}
 			else {
@@ -117,7 +117,7 @@ void Tick()
 
 	switch(state) {   // State actions
 		case Init:
-			number = 0;
+			num = 0;
 			break;
 		
 		case Wait:
@@ -126,16 +126,16 @@ void Tick()
 		case Inc:
 			if (PORTB < 9) {
 				PORTB = PORTB + 1;
-				number = PORTB;
-				LCD_WriteData(number+'0');
+				num = PORTB;
+				LCD_WriteData(num + '0');
 		}
 		break;
 
 		case Dec:
 			if (PORTB > 0) {
 				PORTB = PORTB - 1;
-				number = PORTB;
-				LCD_WriteData(number+'0');
+				num = PORTB;
+				LCD_WriteData(num + '0');
 		}
 		break;
 		
@@ -153,6 +153,7 @@ void Tick()
 int main(void)
 {
 	DDRA = 0x00; PORTA = 0xFF;
+	DDRB = 0xFF; PORTB = 0x00;
 	DDRC = 0xFF; PORTC = 0x00; // LCD data lines
 	DDRD = 0xFF; PORTD = 0x00; // LCD control lines
 	TimerSet(500);
