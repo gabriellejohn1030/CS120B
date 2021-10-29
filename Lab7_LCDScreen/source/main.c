@@ -10,8 +10,7 @@
  */
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "io.c"
-
+#include "../header/io.h"
 
 volatile unsigned char TimerFlag = 0; // TimerISR() sets this to 1. Cprogrammer should clear to 0.
 
@@ -63,10 +62,11 @@ enum States {Start, Init, Wait, Inc, Dec, Zero} state;
 void Tick()
 {
 	int num = 0;
+	unsigned char temp = ~PINA&0x0F;
+
 	switch(state) {   // Transitions
 		case Start:  
 			state = Init;
-			unsigned temp = ~PINA&0x0F;
 			break;
 
 		case Init:
@@ -90,7 +90,7 @@ void Tick()
 			else if ((temp == 0x02)){
 				state = Dec;
 			}
-			else if ((temp == 0x01)&&(temp == 0x02)){
+			else if ((temp == 0x01) && (temp == 0x02)){
 				state = Zero;
 			}
 			else {
@@ -117,30 +117,30 @@ void Tick()
 
 	switch(state) {   // State actions
 		case Init:
-			number = 0;
+			num = 0;
 			break;
 		
 		case Wait:
 			break;
 		
 		case Inc:
-			if (PORTB < 9) {
-				PORTB = PORTB + 1;
-				number = PORTB;
-				LCD_WriteData(number+'0');
+			if (PORTC < 9) {
+				PORTC = PORTC + 1;
+				num = PORTC;
+				LCD_WriteData(num + '0');
 		}
 		break;
 
 		case Dec:
-			if (PORTB > 0) {
-				PORTB = PORTB - 1;
-				number = PORTB;
-				LCD_WriteData(number+'0');
+			if (PORTC > 0) {
+				PORTC = PORTC - 1;
+				num = PORTC;
+				LCD_WriteData(num + '0');
 		}
 		break;
 		
 		case Zero:
-			PORTB = 0;
+			PORTC = 0;
 			LCD_WriteData(0 +'0');
 			break;
 
